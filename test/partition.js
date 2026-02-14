@@ -3,6 +3,11 @@
 'use strict';
 
 QUnit.module("Тестируем функцию partition", function() {
+    QUnit.test("Возвращает пустой массив при пустом массиве", function(assert) {
+        const result = partition([], num => num < 3);
+        assert.deepEqual(result, [[], []]);
+    });
+    
     QUnit.test("Работает правильно при разделении массива на основе предиката", function(assert) {
         const isEven = num => num % 2 === 0;
         const result = partition([1, 2, 3, 4, 5, 6], isEven);
@@ -20,6 +25,16 @@ QUnit.module("Тестируем функцию partition", function() {
         assert.deepEqual(result, [
             [1, 2, 3, 4, 5],
             []
+        ]);
+    });
+
+    QUnit.test("Работает правильно при разделении с предикатом, возвращающим false для всех элементов", function(assert) {
+        const isNegative = num => num < 0;
+        const result = partition([1, 2, 3, 4, 5], isNegative);
+
+        assert.deepEqual(result, [
+            [],
+            [1, 2, 3, 4, 5]
         ]);
     });
 
@@ -42,4 +57,6 @@ QUnit.module("Тестируем функцию partition", function() {
             ]
         ]);
     });
+
+
 });
