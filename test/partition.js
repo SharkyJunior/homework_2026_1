@@ -58,5 +58,26 @@ QUnit.module("Тестируем функцию partition", function() {
         ]);
     });
 
+    QUnit.test("Не меняет порядок объектов", function(assert) {
+        const predicate = num => num < 3;
+        const result = partition([-3, 20, 2, 15], predicate);
+        assert.deepEqual(result, [[-3, 2], [20, 15]]);
+    });
 
+    QUnit.test("Не изменяет изначальный массив", function(assert) {
+        const predicate = num => num < 3;
+        const arr = [-3, 20, 2, 15]
+        const result = partition(arr, predicate);
+        assert.deepEqual(arr, [-3, 20, 2, 15]);
+    });
+
+    QUnit.test("Выдает ошибку при неправильном предикате", function(assert) {
+        const predicate = 'this is a predicate';
+        assert.throws(() => partition([1, 2, 3], predicate), TypeError);
+    });
+
+    QUnit.test("Выдает ошибку при неправильном массиве", function(assert) {
+        const arr = 'this is an array';
+        assert.throws(() => partition(arr, num => num < 3), TypeError);
+    });
 });
