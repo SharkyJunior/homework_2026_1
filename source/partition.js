@@ -11,7 +11,6 @@
  *
  * @returns {[Array, Array]}
  */
-
 const partition = (array, predicate) => {
     if (!Array.isArray(array)) {
         throw new TypeError('array must be an array');
